@@ -1,7 +1,7 @@
 import React from 'react';
 
-const MyComponent = () => (
-  <h1>Hello world</h1>
+const ImageCloseup = () => (
+  <h1>This will be an image modal</h1>
 );
 
-export default MyComponent;
+export default ImageCloseup;
