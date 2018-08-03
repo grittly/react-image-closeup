@@ -9,10 +9,9 @@ p {
 }
 
 h1 {
-  font-size: 5em;
+  font-size: 4em;
   text-align:center; 
   text-transform: uppercase;
-  /* margin: 0.5em 0 0.3em; */
 }
 
 #app {
@@ -50,6 +49,7 @@ figure img {
 
 figure figcaption {
   font-size: 0.7em;
+  margin: 0.5em 0;
 }
 
 .button-container{

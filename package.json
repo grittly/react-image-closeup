@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-serve ./webpack.config.js"
+    "start": "webpack-serve ./webpack.config.js",
+    "lint": "eslint src/**"
   },
   "author": "grittly",
   "license": "ISC",
@@ -26,6 +27,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
     "html-webpack-plugin": "^3.2.0",
+    "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "style-loader": "^0.21.0",
