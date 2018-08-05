@@ -1,5 +1,7 @@
+/* global document, window */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { determineStepSize } from './helpers';
 
 const styles = {
   container: {
@@ -23,11 +25,15 @@ const styles = {
 
   },
   imageContainer: {
-    height: '100%',
   },
   img: {
-    height: '100%',
+    maxHeight: '100vh',
+    maxWidth: '100vw',
   },
+};
+
+const CONFIG = {
+  maxZoomLevels: 4,
 };
 
 class ImageCloseup extends Component {
@@ -42,44 +48,54 @@ class ImageCloseup extends Component {
       dragStartY: 0,
       dragEndX: 0,
       dragEndY: 0,
+      scaleStepSize: 1,
+      scale: 1,
+      maxScale: 1,
     };
     this.onDrag = this.onDrag.bind(this);
     this.onDragStart = this.onDragStart.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.handleImageLoad = this.handleImageLoad.bind(this);
+    this.zoomIn = this.zoomIn.bind(this);
+    this.zoomOut = this.zoomOut.bind(this);
   }
 
   componentDidMount() {
     // Once modal is open, prevent background from scrolling
     document.body.style.overflow = 'hidden';
     // prevent dragging behaviour
-    window.ondragstart = function() { return false; }
+    window.ondragstart = () => false;
   }
 
-  componentWillUmount() {
+  componentWillUnmount() {
     document.body.style.overflow = 'auto';
   }
 
-  onDrag(e){
-    if(this.state.dragging){
+  onDrag(e) {
+    if (this.state.dragging) {
       this.setState({
-        translateX: this.state.dragEndX + e.pageX - this.state.dragStartX,
-        translateY: this.state.dragEndY + e.pageY - this.state.dragStartY,
-      })
+        translateX: (this.state.dragEndX + e.pageX) - this.state.dragStartX,
+        translateY: (this.state.dragEndY + e.pageY) - this.state.dragStartY,
+      });
     }
   }
 
-  onDragStart(e){
+  onDragStart(e) {
     this.setState({
       dragging: true,
       dragStartX: e.pageX,
       dragStartY: e.pageY,
-    })
+    });
   }
 
-  onDragEnd(e){
-    const { x, y, width, height } = this.picture.getBoundingClientRect();
-    let translateX = this.state.translateX;
-    let translateY = this.state.translateY;
+  onDragEnd() {
+    const {
+      x, y, width, height,
+    } = this.picture.getBoundingClientRect();
+    const {
+      translateX,
+      translateY,
+    } = this.state;
     const stageWidth = this.modal.offsetWidth;
     const stageHeight = this.modal.offsetHeight;
 
@@ -87,39 +103,75 @@ class ImageCloseup extends Component {
       dragging: false,
       dragEndX: translateX,
       dragEndY: translateY,
-      translateX: translateX,
-      translateY: translateY,
-    })
+      translateX,
+      translateY,
+    });
   }
 
+  zoomIn() {
+    if (this.state.scale < this.state.maxScale) {
+      this.setState({
+        scale: Math.min(this.state.scale + this.state.scaleStepSize, this.state.maxScale),
+      });
+    }
+  }
+
+  zoomOut() {
+    if (this.state.scale > 0) {
+      this.setState({
+        scale: Math.max(this.state.scale - this.state.scaleStepSize, 1),
+      });
+    }
+  }
+
+  //  TODO: Add a resize window listener so the picture's scale gets adjusted
+
+  handleImageLoad(e) {
+    const {
+      naturalHeight: actualHeight,
+      height: scaledHeight,
+    } = e.target;
+    const maxScale = actualHeight / scaledHeight;
+
+    //  TODO: Do calculation using determineStepSize() function
+    const scaleStepSize = Math.round((maxScale / CONFIG.maxZoomLevels) * 100) / 100;
+
+    this.setState({
+      imageLoaded: true,
+      scaleStepSize,
+      maxScale: Math.round(maxScale * 100) / 100,
+    });
+  }
 
   render() {
     return (
       <div ref={(elem) => { this.modal = elem; }} style={styles.container}>
         { this.state.imageLoaded ? null : <p>Image Loading</p> }
         <div
-          style={styles.imageContainer}
+          role="presentation"
           onMouseMove={this.onDrag}
           onMouseDown={this.onDragStart}
           onMouseUp={this.onDragEnd}
           onMouseLeave={this.onDragEnd}
-          ref={(elem) => { this.picture = elem }}
+          ref={(elem) => { this.picture = elem; }}
           style={{
             ...styles.imageContainer,
-            transform: `translate(${this.state.translateX}px, ${this.state.translateY}px)`
+            transform: `translate(${this.state.translateX}px, ${this.state.translateY}px) scale(${
+              this.state.scale
+            })`,
           }}
         >
           <img
             src={this.props.imageSrc}
-            onLoad={() => { this.setState({ imageLoaded: true }) }}
+            onLoad={this.handleImageLoad}
             alt={this.props.imageAltText}
             style={styles.img}
           />
         </div>
         <div style={styles.toolbar}>
           <div style={styles.zoomButtonsContainer}>
-            <button>Zoom Out</button>
-            <button>Zoom In</button>
+            <button onClick={this.zoomOut}>Zoom Out</button>
+            <button onClick={this.zoomIn}>Zoom In</button>
           </div>
           <div style={styles.closeButtonContainer}>
             <button onClick={this.props.closeModalFunc}>Close</button>
