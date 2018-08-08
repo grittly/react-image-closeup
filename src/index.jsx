@@ -22,7 +22,6 @@ const styles = {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-
   },
   imageContainer: {
   },
@@ -134,7 +133,9 @@ class ImageCloseup extends Component {
     const maxScale = actualHeight / scaledHeight;
 
     //  TODO: Do calculation using determineStepSize() function
-    const scaleStepSize = Math.round((maxScale / CONFIG.maxZoomLevels) * 100) / 100;
+    // const scaleStepSize = Math.round((maxScale / CONFIG.maxZoomLevels) * 100) / 100;
+    const scaleStepSize = determineStepSize(CONFIG.maxZoomLevels, maxScale);
+    console.log("scale stepszize", scaleStepSize, maxScale)
 
     this.setState({
       imageLoaded: true,
