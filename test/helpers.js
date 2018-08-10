@@ -27,30 +27,35 @@ describe('helpers', () => {
     });
   });
   describe('coordWithinRange', () => {
-    it('Returns same coordinate if it is within range', () => {
-      const [coord, min, max] = [10, 2, 20];
-      const result = coordWithinRange(coord, min, max);
-      expect(result).to.equal(10);
+    it('Returns mid position if size is less than max-min', () => {
+      const [pos, size, min, max] = [10, 20, 0, 100];
+      const result = coordWithinRange(pos, size, min, max);
+      expect(result).to.equal(40);
     });
-    it('Returns min value if coordinate is less than', () => {
-      const [coord, min, max] = [0, 2, 20];
-      const result = coordWithinRange(coord, min, max);
-      expect(result).to.equal(2);
-    });
-    it('Returns max value if coordinate is greater than', () => {
-      const [coord, min, max] = [22, 2, 20];
-      const result = coordWithinRange(coord, min, max);
-      expect(result).to.equal(20);
-    });
-    it('Returns same coordinate if max value is not specified', () => {
-      const [coord, min, max] = [22, 2, undefined];
-      const result = coordWithinRange(coord, min, max);
-      expect(result).to.equal(22);
-    });
-    it('Returns 0 as default min value if coord is negative', () => {
-      const [coord, min, max] = [-2, undefined, undefined];
-      const result = coordWithinRange(coord, min, max);
+    it('Returns min position if coordinate is greater than min and size is > than max-min', () => {
+      const [pos, size, min, max] = [10, 110, 0, 100];
+      const result = coordWithinRange(pos, size, min, max);
       expect(result).to.equal(0);
+    });
+    it('Returns max position if coordinate + size is less than max and size is > max-min', () => {
+      const [pos, size, min, max] = [-10, 105, 0, 100];
+      const result = coordWithinRange(pos, size, min, max);
+      expect(result).to.equal(-5);
+    });
+    it('Returns same position if coordinate < min and cordinate + size > max while size > max-min', () => {
+      const [pos, size, min, max] = [-10, 120, 0, 100];
+      const result = coordWithinRange(pos, size, min, max);
+      expect(result).to.equal(-10);
+    });
+    it('Default min is 0', () => {
+      const [pos, size, min, max] = [10, 110, undefined, 100];
+      const result = coordWithinRange(pos, size, min, max);
+      expect(result).to.equal(0);
+    });
+    it('If no max provided, return same pos', () => {
+      const [pos, size, min, max] = [-10, 105, 0, undefined];
+      const result = coordWithinRange(pos, size, min, max);
+      expect(result).to.equal(-10);
     });
   });
 });

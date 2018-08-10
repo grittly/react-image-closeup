@@ -1,7 +1,10 @@
 /* global document, window */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { determineStepSize } from './helpers';
+import {
+  determineStepSize,
+  coordWithinRange,
+} from './helpers';
 
 const styles = {
   container: {
@@ -100,10 +103,10 @@ class ImageCloseup extends Component {
 
     this.setState({
       dragging: false,
-      dragEndX: translateX,
-      dragEndY: translateY,
-      translateX,
-      translateY,
+      dragEndX: coordWithinRange(translateX, 0, stageWidth),
+      dragEndY: coordWithinRange(translateY, 0, stageHeight),
+      translateX: coordWithinRange(translateX, 0, stageWidth),
+      translateY: coordWithinRange(translateY, 0, stageHeight),
     });
   }
 
