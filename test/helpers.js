@@ -1,7 +1,7 @@
 /* global it, describe */
 import {
   determineStepSize,
-  coordWithinRange,
+  positionWithinRange,
 } from '../src/helpers';
 
 const { expect } = require('chai');
@@ -26,36 +26,45 @@ describe('helpers', () => {
       expect((result * (numSteps - 1)) + 1).to.be.gte(maxScale);
     });
   });
-  describe('coordWithinRange', () => {
-    it('Returns mid position if size is less than max-min', () => {
-      const [pos, size, min, max] = [10, 20, 0, 100];
-      const result = coordWithinRange(pos, size, min, max);
-      expect(result).to.equal(40);
+  describe('positionWithinRange', () => {
+    it('Returns same coordinate if either size or stageSize params are undefined', () => {
+      let [pos, size, stageSize] = [12, undefined, 100];
+      let result = positionWithinRange(pos, size, stageSize);
+      expect(result).to.equal(pos);
+
+      [pos, size, stageSize] = [12, 12, undefined];
+      result = positionWithinRange(pos, size, stageSize);
+      expect(result).to.equal(pos);
     });
-    it('Returns min position if coordinate is greater than min and size is > than max-min', () => {
-      const [pos, size, min, max] = [10, 110, 0, 100];
-      const result = coordWithinRange(pos, size, min, max);
+
+    it('Return same coordinate if size > stageSize and both edges are outside stageSize boundaries', () => {
+      const [pos, size, stageSize] = [12, 1000, 100];
+      const result = positionWithinRange(pos, size, stageSize);
+      expect(result).to.equal(pos);
+    });
+
+    it('Return 0 if size < stageSize', () => {
+      const [pos, size, stageSize] = [12, 10, 100];
+      const result = positionWithinRange(pos, size, stageSize);
       expect(result).to.equal(0);
     });
-    it('Returns max position if coordinate + size is less than max and size is > max-min', () => {
-      const [pos, size, min, max] = [-10, 105, 0, 100];
-      const result = coordWithinRange(pos, size, min, max);
-      expect(result).to.equal(-5);
+
+    it('Return same coordinate if size > stageSize and both edges are outside stageSize boundaries', () => {
+      const [pos, size, stageSize] = [12, 1000, 100];
+      const result = positionWithinRange(pos, size, stageSize);
+      expect(result).to.equal(pos);
     });
-    it('Returns same position if coordinate < min and cordinate + size > max while size > max-min', () => {
-      const [pos, size, min, max] = [-10, 120, 0, 100];
-      const result = coordWithinRange(pos, size, min, max);
-      expect(result).to.equal(-10);
+
+    it('Snap to left if position given size is greater than left boundary and size > stageSize', () => {
+      const [pos, size, stageSize] = [40, 120, 100];
+      const result = positionWithinRange(pos, size, stageSize);
+      expect(result).to.equal((-stageSize / 2) + (size / 2));
     });
-    it('Default min is 0', () => {
-      const [pos, size, min, max] = [10, 110, undefined, 100];
-      const result = coordWithinRange(pos, size, min, max);
-      expect(result).to.equal(0);
-    });
-    it('If no max provided, return same pos', () => {
-      const [pos, size, min, max] = [-10, 105, 0, undefined];
-      const result = coordWithinRange(pos, size, min, max);
-      expect(result).to.equal(-10);
+
+    it('Snap to right if position given size is less than right boundary and size > stageSize', () => {
+      const [pos, size, stageSize] = [-40, 120, 100];
+      const result = positionWithinRange(pos, size, stageSize);
+      expect(result).to.equal((stageSize / 2) - (size / 2));
     });
   });
 });

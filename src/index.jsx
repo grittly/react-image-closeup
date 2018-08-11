@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   determineStepSize,
-  coordWithinRange,
+  positionWithinRange,
 } from './helpers';
 
 const styles = {
@@ -92,7 +92,7 @@ class ImageCloseup extends Component {
 
   onDragEnd() {
     const {
-      x, y, width, height,
+      width, height,
     } = this.picture.getBoundingClientRect();
     const {
       translateX,
@@ -100,13 +100,12 @@ class ImageCloseup extends Component {
     } = this.state;
     const stageWidth = this.modal.offsetWidth;
     const stageHeight = this.modal.offsetHeight;
-
     this.setState({
       dragging: false,
-      dragEndX: coordWithinRange(translateX, 0, stageWidth),
-      dragEndY: coordWithinRange(translateY, 0, stageHeight),
-      translateX: coordWithinRange(translateX, 0, stageWidth),
-      translateY: coordWithinRange(translateY, 0, stageHeight),
+      dragEndX: positionWithinRange(translateX, width, stageWidth),
+      dragEndY: positionWithinRange(translateY, height, stageHeight),
+      translateX: positionWithinRange(translateX, width, stageWidth),
+      translateY: positionWithinRange(translateY, height, stageHeight),
     });
   }
 
