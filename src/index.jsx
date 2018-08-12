@@ -27,6 +27,7 @@ const styles = {
     justifyContent: 'center',
   },
   imageContainer: {
+    // transition: 'transform 1s',
   },
   img: {
     maxHeight: '100vh',
@@ -35,7 +36,7 @@ const styles = {
 };
 
 const CONFIG = {
-  maxZoomLevels: 4,
+  maxZoomLevels: 5,
 };
 
 class ImageCloseup extends Component {
@@ -60,6 +61,7 @@ class ImageCloseup extends Component {
     this.handleImageLoad = this.handleImageLoad.bind(this);
     this.zoomIn = this.zoomIn.bind(this);
     this.zoomOut = this.zoomOut.bind(this);
+    this.onResizeWindow = this.onResizeWindow.bind(this);
   }
 
   componentDidMount() {
@@ -67,10 +69,12 @@ class ImageCloseup extends Component {
     document.body.style.overflow = 'hidden';
     // prevent dragging behaviour
     window.ondragstart = () => false;
+    window.addEventListener('resize', this.onResizeWindow);
   }
 
   componentWillUnmount() {
     document.body.style.overflow = 'auto';
+    window.removeEventListener('resize', this.onResizeWindow);
   }
 
   onDrag(e) {
@@ -93,14 +97,42 @@ class ImageCloseup extends Component {
   onDragEnd() {
     const {
       width, height,
-    } = this.picture.getBoundingClientRect();
+    } = this.container.getBoundingClientRect();
     const {
       translateX,
       translateY,
     } = this.state;
-    const stageWidth = this.modal.offsetWidth;
-    const stageHeight = this.modal.offsetHeight;
+    const { offsetWidth: stageWidth, offsetHeight: stageHeight } = this.modal;
     this.setState({
+      dragging: false,
+      dragEndX: positionWithinRange(translateX, width, stageWidth),
+      dragEndY: positionWithinRange(translateY, height, stageHeight),
+      translateX: positionWithinRange(translateX, width, stageWidth),
+      translateY: positionWithinRange(translateY, height, stageHeight),
+    });
+  }
+
+  onResizeWindow() {
+    const {
+      naturalHeight: actualHeight,
+      height: scaledHeight,
+    } = this.image;
+    const {
+      width, height,
+    } = this.container.getBoundingClientRect();
+    const {
+      translateX,
+      translateY,
+    } = this.state;
+
+    const maxScale = actualHeight / scaledHeight;
+    const newScale = (this.state.scale / this.state.maxScale) * maxScale;
+    const scaleStepSize = determineStepSize(CONFIG.maxZoomLevels, maxScale);
+    const { offsetWidth: stageWidth, offsetHeight: stageHeight } = this.modal;
+    this.setState({
+      scaleStepSize,
+      maxScale,
+      scale: newScale,
       dragging: false,
       dragEndX: positionWithinRange(translateX, width, stageWidth),
       dragEndY: positionWithinRange(translateY, height, stageHeight),
@@ -125,19 +157,19 @@ class ImageCloseup extends Component {
     }
   }
 
-  //  TODO: Add a resize window listener so the picture's scale gets adjusted
-
-  handleImageLoad(e) {
+  handleImageLoad() {
     const {
       naturalHeight: actualHeight,
       height: scaledHeight,
-    } = e.target;
+    } = this.image;
+
     const maxScale = actualHeight / scaledHeight;
     const scaleStepSize = determineStepSize(CONFIG.maxZoomLevels, maxScale);
     this.setState({
       imageLoaded: true,
       scaleStepSize,
-      maxScale: Math.round(maxScale * 100) / 100,
+      maxScale,
+      scale: 1,
     });
   }
 
@@ -151,7 +183,7 @@ class ImageCloseup extends Component {
           onMouseDown={this.onDragStart}
           onMouseUp={this.onDragEnd}
           onMouseLeave={this.onDragEnd}
-          ref={(elem) => { this.picture = elem; }}
+          ref={(elem) => { this.container = elem; }}
           style={{
             ...styles.imageContainer,
             transform: `translate(${this.state.translateX}px, ${this.state.translateY}px) scale(${
@@ -163,13 +195,24 @@ class ImageCloseup extends Component {
             src={this.props.imageSrc}
             onLoad={this.handleImageLoad}
             alt={this.props.imageAltText}
+            ref={(elem) => { this.image = elem; }}
             style={styles.img}
           />
         </div>
         <div style={styles.toolbar}>
           <div style={styles.zoomButtonsContainer}>
-            <button onClick={this.zoomOut}>Zoom Out</button>
-            <button onClick={this.zoomIn}>Zoom In</button>
+            <button
+              onClick={this.zoomOut}
+              disabled={this.state.scale <= 0}
+            >
+              Zoom Out
+            </button>
+            <button
+              onClick={this.zoomIn}
+              disabled={this.state.scale >= this.state.maxScale}
+            >
+              Zoom In
+            </button>
           </div>
           <div style={styles.closeButtonContainer}>
             <button onClick={this.props.closeModalFunc}>Close</button>
