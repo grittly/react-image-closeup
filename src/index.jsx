@@ -5,6 +5,8 @@ import {
   determineStepSize,
   positionWithinRange,
 } from './helpers';
+import css from './animations.css';
+
 
 const styles = {
   container: {
@@ -27,7 +29,6 @@ const styles = {
     justifyContent: 'center',
   },
   imageContainer: {
-    // transition: 'transform 1s',
   },
   img: {
     maxHeight: '100vh',
