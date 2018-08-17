@@ -6,6 +6,7 @@ import {
   positionWithinRange,
 } from './helpers';
 import Loader from './Loader';
+import cssStyles from './styles';
 
 const styles = {
   container: {
@@ -70,6 +71,11 @@ class ImageCloseup extends Component {
     // prevent dragging behaviour
     window.ondragstart = () => false;
     window.addEventListener('resize', this.onResizeWindow);
+    // Inject css
+    let tag = document.createElement('style');
+    tag.id = 'react-image-closeup';
+    tag.innerHTML = cssStyles;
+    document.getElementsByTagName('head')[0].appendChild(tag);
   }
 
   componentWillUnmount() {
@@ -176,53 +182,53 @@ class ImageCloseup extends Component {
   render() {
     return (
       <div ref={(elem) => { this.modal = elem; }} style={styles.container}>
-        <Loader />
-        { this.state.imageLoaded ? null : <p>Image Loading</p> }
-        <div
-          role="presentation"
-          onMouseMove={this.onDrag}
-          onMouseDown={this.onDragStart}
-          onMouseUp={this.onDragEnd}
-          onMouseLeave={this.onDragEnd}
-          ref={(elem) => { this.container = elem; }}
-          style={{
-            ...styles.imageContainer,
-            transform: `translate(${this.state.translateX}px, ${this.state.translateY}px) scale(${
-              this.state.scale
+      <Loader />
+      { this.state.imageLoaded ? null : <p>Image Loading</p> }
+      <div
+        role="presentation"
+        onMouseMove={this.onDrag}
+        onMouseDown={this.onDragStart}
+      onMouseUp={this.onDragEnd}
+      onMouseLeave={this.onDragEnd}
+      ref={(elem) => { this.container = elem; }}
+      style={{
+        ...styles.imageContainer,
+        transform: `translate(${this.state.translateX}px, ${this.state.translateY}px) scale(${
+          this.state.scale
             })`,
-          }}
-        >
+      }}
+    >
           <img
             src={this.props.imageSrc}
-            onLoad={this.handleImageLoad}
-            alt={this.props.imageAltText}
-            ref={(elem) => { this.image = elem; }}
-            style={styles.img}
-          />
-        </div>
-        <div style={styles.toolbar}>
-          <div style={styles.zoomButtonsContainer}>
-            <button
-              onClick={this.zoomOut}
-              disabled={this.state.scale <= 0}
-            >
-              Zoom Out
-            </button>
-            <button
-              onClick={this.zoomIn}
-              disabled={this.state.scale >= this.state.maxScale}
-            >
-              Zoom In
-            </button>
-          </div>
-          <div style={styles.closeButtonContainer}>
-            <button onClick={this.props.closeModalFunc}>Close</button>
-          </div>
-        </div>
+      onLoad={this.handleImageLoad}
+      alt={this.props.imageAltText}
+      ref={(elem) => { this.image = elem; }}
+      style={styles.img}
+    />
+  </div>
+      <div style={styles.toolbar}>
+        <div style={styles.zoomButtonsContainer}>
+          <button
+      onClick={this.zoomOut}
+      disabled={this.state.scale <= 0}
+    >
+      Zoom Out
+    </button>
+    <button
+      onClick={this.zoomIn}
+      disabled={this.state.scale >= this.state.maxScale}
+    >
+      Zoom In
+    </button>
+  </div>
+      <div style={styles.closeButtonContainer}>
+        <button onClick={this.props.closeModalFunc}>Close</button>
       </div>
+      </div>
+    </div>
     );
   }
-}
+  }
 
 ImageCloseup.defaultProps = {
   imageAltText: 'full-size-image',

@@ -1,6 +1,6 @@
 /* global document, window */
 import React from 'react';
-import css from './styles.css';
+import css from './styles.css.json';
 
 const styles = {
 };

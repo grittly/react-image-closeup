@@ -7,8 +7,7 @@
     "test": "NODE_ENV=testing mocha './test/*' --watch --require babel-core/register",
     "start": "npm run build && webpack-serve ./webpack.config.js",
     "lint": "eslint src/**",
-    "build": "NODE_ENV=production postcss src/*.css -d dist && babel src -d dist",
-    "build2": "NODE_ENV=production node buildCss.js && babel src -d dist"
+    "build": "NODE_ENV=production node buildCss.js && babel src -d dist"
   },
   "author": "grittly",
   "license": "ISC",
