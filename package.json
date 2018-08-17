@@ -7,7 +7,7 @@
     "test": "NODE_ENV=testing mocha './test/*' --watch --require babel-core/register",
     "start": "npm run build && webpack-serve ./webpack.config.js",
     "lint": "eslint src/**",
-    "build": "postcss src/*.css -d dist && babel src -d dist"
+    "build": "NODE_ENV=production postcss src/*.css -d dist && babel src -d dist"
   },
   "author": "grittly",
   "license": "ISC",
@@ -18,10 +18,16 @@
     ],
     "plugins": [
       "transform-object-rest-spread",
-      ["react-css-modules", { "generateScopedName": "[name]__[local]___[hash:base64:5]" }]
+      [
+        "react-css-modules",
+        {
+          "generateScopedName": "[name]__[local]___[hash:base64:5]"
+        }
+      ]
     ]
   },
   "devDependencies": {
+    "autoprefixer": "^9.1.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
@@ -30,6 +36,7 @@
     "babel-preset-react": "^6.24.1",
     "chai": "^4.1.2",
     "css-loader": "^1.0.0",
+    "cssnano": "^4.0.5",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
