@@ -7,8 +7,8 @@ const styles = {
 
 const Loader = () => (
   <div styleName="css.loader-container">
-    <div>
-      <div></div>
+    <div styleName="css.loader">
+      <div styleName="css.box"></div>
     </div>
   </div>
 );

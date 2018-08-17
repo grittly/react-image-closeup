@@ -6,9 +6,47 @@
   align-items: center;
   font-size: 0.7em;
   position: fixed;
+  z-index: 99999;
 }
 
-@keyframes :local(test){
+:local .loader{
+  padding:0;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin: 0;
+  width: 4em;
+  height: 4em;
+  overflow: hidden;
+  position: relative;
+}
+
+:local .box, .box:after, .box:before{
+  width: 2em;
+  height: 2em;
+  background-color: transparent;
+  margin-top: -2em;
+  animation-name: load, cycle;
+  animation-duration: 0.5s, 3.6s;
+  animation-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+  animation-iteration-count: 1, infinite;
+  border-radius: 20%;
+}
+
+:local .box:before, .box:after{
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+}
+
+:local .box:before{
+  animation-delay: 1.2s;
+}
+
+:local .box:after{
+  animation-delay: 2.4s;
+}
+
+@keyframes :local(load){
   from{
     opacity: 0;
   }
@@ -17,4 +55,42 @@
   }
 }
 
-
+@keyframes :local(cycle){
+  0%, 15%{
+    box-shadow: 0em 2em 0 -0.5em #FFF;
+    width: 2em;
+    height: 2em;
+  }
+  20%{
+    width: 3em;
+  }
+  25%, 40% {
+    box-shadow: 2em 2em 0 -0.5em #FFF;
+    width: 2em;
+    height: 2em;
+  }
+  45%{
+    height: 3em;
+  }
+  50%, 65% {
+    box-shadow: 2em 4em 0 -0.5em #FFF;
+    width: 2em;
+    height: 2em;
+  }
+  70%{
+    width: 2em;
+  }
+  75%, 90% {
+    box-shadow: 0em 4em 0 -0.5em #FFF;
+    width: 2em;
+    height: 2em;
+  }
+  95%{
+    height: 3em;
+  }
+  100% {
+    box-shadow: 0em 2em 0 -0.5em #FFF;
+    width: 2em;
+    height: 2em;
+  }
+}
