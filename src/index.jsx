@@ -5,8 +5,7 @@ import {
   determineStepSize,
   positionWithinRange,
 } from './helpers';
-import css from './animations.css';
-
+import Loader from './Loader';
 
 const styles = {
   container: {
@@ -177,6 +176,7 @@ class ImageCloseup extends Component {
   render() {
     return (
       <div ref={(elem) => { this.modal = elem; }} style={styles.container}>
+        <Loader />
         { this.state.imageLoaded ? null : <p>Image Loading</p> }
         <div
           role="presentation"
