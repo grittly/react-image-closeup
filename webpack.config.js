@@ -7,7 +7,6 @@ module.exports = {
     app: path.join(__dirname, 'demo/src/index.jsx'),
   },
   plugins: [
-    // new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       title: 'react-image-closeup demo',
       template: path.join(__dirname, 'demo/src/template.ejs'),
@@ -26,13 +25,7 @@ module.exports = {
         test: /\.css?$/,
         use: [
           'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              localIdentName: '[name]__[local]___[hash:base64:5]',
-            },
-          },
+          'css-loader',
         ],
       },
     ],
