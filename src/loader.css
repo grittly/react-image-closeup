@@ -6,7 +6,8 @@
   align-items: center;
   font-size: 0.7em;
   position: fixed;
-  z-index: 99999;
+  /* z-index: 99998; */
+  z-index: 2;
 }
 
 :local .loader{
