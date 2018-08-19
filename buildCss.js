@@ -1,6 +1,6 @@
-const autoprefixer = require('autoprefixer');
+// const autoprefixer = require('autoprefixer');
 // const modules = require('postcss-modules');
-const cssnano = require('cssnano');
+// const cssnano = require('cssnano');
 const postcss = require('postcss');
 const postcssImport = require('postcss-import');
 const fs = require('fs');
@@ -18,7 +18,9 @@ fs.readFile(path.resolve(srcDir, 'styles.css'), (err, css) => {
         fs.writeFileSync(jsonFileName, JSON.stringify(json));
       }
     }),
-    autoprefixer, cssnano])
+    process.env.NODE_ENV === 'production' ? require('autoprefixer'):undefined,
+    require('cssnano'),
+  ].filter((plugin) => plugin !== undefined))
     .process(css, { from: path.resolve(srcDir, 'styles.css'), to: path.resolve(outDir, 'styles.css') })
     .then(result => {
       const jsfile = `export default '${result.css.toString()}';`;

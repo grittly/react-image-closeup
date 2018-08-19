@@ -1,0 +1,53 @@
+.toolbar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position:absolute;
+  top: 0;
+}
+
+.toolbar:before{
+  content: "";
+  display: block;
+  flex: 1 1 0;
+}
+
+.toolbar .justifyCenter{
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+}
+
+.toolbar .justifyRight{
+  flex: 1 1 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+.iconContainer {
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 2.5em;
+  height: 2.5em;
+  opacity: 0.2;
+  margin: 0.5em;
+  box-shadow: 0 0 0 0 transparent;
+}
+
+.icon {
+  transform: scale(0.5) rotate(0);
+  transform-origin: center;
+  fill: #FFF;
+}
+
+.iconContainer:hover {
+  opacity: 1;
+  transition: opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  box-shadow: 0 2px 5px 1px #0006;
+}
+
+.iconContainer:hover .icon {
+  transform: scale(0.7) rotate(90deg);
+  transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+

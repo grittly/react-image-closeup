@@ -7,6 +7,8 @@ import {
 } from './helpers';
 import Loader from './Loader';
 import cssStyles from './styles';
+import css from './styles.css.json';
+import { CloseIcon } from './ActionIcons';
 
 const styles = {
   container: {
@@ -21,14 +23,14 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  toolbar: {
-    position: 'absolute',
-    zIndex: 3,
-    top: 0,
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-  },
+  // toolbar: {
+  //   position: 'absolute',
+  //   zIndex: 3,
+  //   top: 0,
+  //   width: '100%',
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  // },
   imageContainer: {
   },
   img: {
@@ -208,23 +210,19 @@ class ImageCloseup extends Component {
             style={styles.img}
           />
         </div>
-        <div style={styles.toolbar}>
-          <div style={styles.zoomButtonsContainer}>
-            <button
+        <div className={css.toolbar}>
+          <div className={css.justifyCenter}>
+            <CloseIcon
               onClick={this.zoomOut}
               disabled={this.state.scale <= 0}
-            >
-              Zoom Out
-            </button>
-            <button
+            />
+            <CloseIcon
               onClick={this.zoomIn}
               disabled={this.state.scale >= this.state.maxScale}
-            >
-              Zoom In
-            </button>
+            />
           </div>
-          <div style={styles.closeButtonContainer}>
-            <button onClick={this.props.closeModalFunc}>Close</button>
+          <div className={css.justifyRight}>
+            <CloseIcon onClick={this.props.closeModalFunc} />
           </div>
         </div>
       </div>

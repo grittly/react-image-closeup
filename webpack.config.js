@@ -33,7 +33,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  mode: 'production',
+  mode: 'development',
   serve: {
     port: 3001,
     hotClient: false,
