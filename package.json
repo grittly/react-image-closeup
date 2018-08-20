@@ -2,7 +2,7 @@
   "name": "react-image-closeup",
   "version": "1.0.0",
   "description": "Display an image in a full screen modal",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "NODE_ENV=testing mocha './test/*' --watch --require babel-core/register",
     "start": "NODE_ENV=production npm run build && npm run server",
@@ -10,7 +10,8 @@
     "dev:start": "concurrently \"npm:dev:build\" \"npm:dev:server\"",
     "lint": "eslint src/**",
     "build": "node buildCss.js && babel src -d dist",
-    "dev:build": "chokidar 'src/*.js*' 'src/*.css' -c 'npm run build'"
+    "dev:build": "chokidar 'src/*.js*' 'src/*.css' -c 'npm run build'",
+    "prepublishOnly": "NODE_ENV=production npm run build"
   },
   "author": "grittly",
   "license": "ISC",
@@ -22,6 +23,10 @@
     "plugins": [
       "transform-object-rest-spread"
     ]
+  },
+  "peerDependencies": {
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
   },
   "devDependencies": {
     "autoprefixer": "^9.1.1",
@@ -47,8 +52,6 @@
     "postcss-cli": "^6.0.0",
     "postcss-import": "^12.0.0",
     "postcss-modules": "^1.3.2",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
     "style-loader": "^0.21.0",
     "webpack": "^4.16.3",
     "webpack-cli": "^3.1.0",
