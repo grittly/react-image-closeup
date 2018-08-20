@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import css from './styles.css.json';
 
 export const CloseIcon = props => (
@@ -24,10 +25,15 @@ CloseIcon.propTypes = {
 
 export const MagnifyIcon = props => (
   <div
-    onClick={props.onClick}
-    disabled={props.disabled}
+    onClick={props.disabled ? () => {} : props.onClick}
   >
-    <svg viewBox="0 0 64 64" className={css.iconContainer}>
+    <svg
+      viewBox="0 0 64 64"
+      className={classnames(
+      css.iconContainer,
+      { [css.disabled]: props.disabled },
+      )}
+    >
       <g className={css.icon}>
         <g>
           <rect width="3em" height="16" x="8" y="24" rx="7%" ry="7%" />
@@ -43,13 +49,17 @@ MagnifyIcon.propTypes = {
   disabled: PropTypes.bool.isRequired,
 };
 
-
 export const DemagnifyIcon = props => (
   <div
     onClick={props.onClick}
-    disabled={props.disabled}
   >
-    <svg viewBox="0 0 64 64" className={css.iconContainer}>
+    <svg
+      viewBox="0 0 64 64"
+      className={classnames(
+      css.iconContainer,
+      { [css.disabled]: props.disabled },
+      )}
+    >
       <g className={css.icon}>
         <g>
           <rect width="3em" height="16" x="8" y="24" rx="7%" ry="7%" />

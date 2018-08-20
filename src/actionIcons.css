@@ -4,7 +4,7 @@
   justify-content: center;
   position:absolute;
   top: 0;
-  z-index: 2;
+  z-index: 3;
 }
 
 .toolbar:before{
@@ -34,19 +34,23 @@
   box-shadow: 0 0 0 0 transparent;
 }
 
+.iconContainer.disabled {
+  opacity: 0.1;
+}
+
 .icon {
   transform: scale(0.5) rotate(0);
   transform-origin: center;
   fill: #FFF;
 }
 
-.iconContainer:hover {
+.iconContainer:not(.disabled):hover {
   opacity: 1;
   transition: opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   box-shadow: 0 2px 5px 1px #0006;
 }
 
-.iconContainer:hover .icon {
+.iconContainer:not(.disabled):hover .icon {
   transform: scale(0.7) rotate(180deg);
   transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }

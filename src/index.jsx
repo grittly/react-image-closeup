@@ -8,7 +8,6 @@ import {
 import Loader from './Loader';
 import Toolbar from './Toolbar';
 import cssStyles from './styles';
-import css from './styles.css.json';
 
 const styles = {
   container: {
@@ -28,11 +27,8 @@ const styles = {
   img: {
     maxHeight: '100vh',
     maxWidth: '100vw',
+    userSelect: 'none',
   },
-};
-
-const CONFIG = {
-  maxZoomLevels: 5,
 };
 
 class ImageCloseup extends Component {
@@ -67,8 +63,8 @@ class ImageCloseup extends Component {
     window.ondragstart = () => false;
     window.addEventListener('resize', this.onResizeWindow);
     // Inject css
-    if(!document.querySelector("style#react-image-closeup")) {
-      let tag = document.createElement('style');
+    if (!document.querySelector('style#react-image-closeup')) {
+      const tag = document.createElement('style');
       tag.id = 'react-image-closeup';
       tag.innerHTML = cssStyles;
       document.getElementsByTagName('head')[0].appendChild(tag);
@@ -130,7 +126,7 @@ class ImageCloseup extends Component {
 
     const maxScale = actualHeight / scaledHeight;
     const newScale = (this.state.scale / this.state.maxScale) * maxScale;
-    const scaleStepSize = determineStepSize(CONFIG.maxZoomLevels, maxScale);
+    const scaleStepSize = determineStepSize(this.props.maxZoomLevels, maxScale);
     const { offsetWidth: stageWidth, offsetHeight: stageHeight } = this.modal;
     this.setState({
       scaleStepSize,
@@ -167,7 +163,7 @@ class ImageCloseup extends Component {
     } = this.image;
 
     const maxScale = actualHeight / scaledHeight;
-    const scaleStepSize = determineStepSize(CONFIG.maxZoomLevels, maxScale);
+    const scaleStepSize = determineStepSize(this.props.maxZoomLevels, maxScale);
     this.setState({
       imageLoaded: true,
       scaleStepSize,
@@ -183,8 +179,8 @@ class ImageCloseup extends Component {
           zoomOut={this.zoomOut}
           zoomIn={this.zoomIn}
           closeModal={this.props.closeModalFunc}
-          zoomOutDisabled={ this.state.scale <= 0 }
-          zoomInDisabled={ this.state.scale >= this.state.maxScale }
+          zoomOutDisabled={!this.state.imageLoaded || this.state.scale <= 1}
+          zoomInDisabled={!this.state.imageLoaded || this.state.scale >= this.state.maxScale}
         />
         { this.state.imageLoaded ? null : <Loader /> }
         <div
@@ -216,12 +212,14 @@ class ImageCloseup extends Component {
 
 ImageCloseup.defaultProps = {
   imageAltText: 'full-size-image',
+  maxZoomLevels: 5,
 };
 
 ImageCloseup.propTypes = {
   imageSrc: PropTypes.string.isRequired,
   closeModalFunc: PropTypes.func.isRequired,
   imageAltText: PropTypes.string,
+  maxZoomLevels: PropTypes.number,
 };
 
 export default ImageCloseup;
