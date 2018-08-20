@@ -4,6 +4,7 @@
   justify-content: center;
   position:absolute;
   top: 0;
+  z-index: 2;
 }
 
 .toolbar:before{
@@ -23,7 +24,6 @@
   display: flex;
   justify-content: flex-end;
 }
-
 
 .iconContainer {
   background-color: rgba(0, 0, 0, 0.6);
@@ -47,7 +47,7 @@
 }
 
 .iconContainer:hover .icon {
-  transform: scale(0.7) rotate(90deg);
+  transform: scale(0.7) rotate(180deg);
   transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 

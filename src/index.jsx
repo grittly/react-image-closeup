@@ -6,9 +6,9 @@ import {
   positionWithinRange,
 } from './helpers';
 import Loader from './Loader';
+import Toolbar from './Toolbar';
 import cssStyles from './styles';
 import css from './styles.css.json';
-import { CloseIcon } from './ActionIcons';
 
 const styles = {
   container: {
@@ -23,14 +23,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  // toolbar: {
-  //   position: 'absolute',
-  //   zIndex: 3,
-  //   top: 0,
-  //   width: '100%',
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  // },
   imageContainer: {
   },
   img: {
@@ -187,6 +179,13 @@ class ImageCloseup extends Component {
   render() {
     return (
       <div ref={(elem) => { this.modal = elem; }} style={styles.container}>
+        <Toolbar
+          zoomOut={this.zoomOut}
+          zoomIn={this.zoomIn}
+          closeModal={this.props.closeModalFunc}
+          zoomOutDisabled={ this.state.scale <= 0 }
+          zoomInDisabled={ this.state.scale >= this.state.maxScale }
+        />
         { this.state.imageLoaded ? null : <Loader /> }
         <div
           role="presentation"
@@ -209,21 +208,6 @@ class ImageCloseup extends Component {
             ref={(elem) => { this.image = elem; }}
             style={styles.img}
           />
-        </div>
-        <div className={css.toolbar}>
-          <div className={css.justifyCenter}>
-            <CloseIcon
-              onClick={this.zoomOut}
-              disabled={this.state.scale <= 0}
-            />
-            <CloseIcon
-              onClick={this.zoomIn}
-              disabled={this.state.scale >= this.state.maxScale}
-            />
-          </div>
-          <div className={css.justifyRight}>
-            <CloseIcon onClick={this.props.closeModalFunc} />
-          </div>
         </div>
       </div>
     );
