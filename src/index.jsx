@@ -7,7 +7,7 @@ import {
 } from './helpers';
 import Loader from './Loader';
 import Toolbar from './Toolbar';
-import cssStyles from './styles';
+import cssStyles from './styles.js';
 
 const styles = {
   container: {
