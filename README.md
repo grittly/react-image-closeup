@@ -16,6 +16,41 @@ Here is a [Demo](https://grittly.github.io/react-image-closeup/) of the componen
 npm install react-image-closeup --save
 ```
 
+## Usage
+```javascript
+import React, { Component } from 'react';
+import ReactImageCloseup from 'react-image-closeup';
+
+class SampleComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalOpen: false,
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        {
+          this.state.modalOpen ?
+            <ImageCloseup
+              closeModalFunc={() => { this.setState({modalOpen: false}); }}
+              imageSrc="http://via.placeholder.com/2000x2000"
+            /> :
+            null
+        }
+        <button
+          onClick={() => { this.setState({modalOpen: true}); }}
+        >
+          Open Image
+        </button>
+      </div>
+    )
+  }
+}
+```
+
 ## Props
 Property | Type | Required | Default value | Description
 :-- | :-- | :-- | :-- | :-- 

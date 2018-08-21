@@ -5,4 +5,5 @@ test
 .eslintrc.json
 buildCss.js
 postcss.config.js
-webpack.config.js
+webpack.dev.js
+webpack.prod.js
