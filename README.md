@@ -6,6 +6,9 @@ While there are plenty of react components out there for displaying full size im
 - Zoom In/Zoom out and drag it around
 - Specify number of magnification steps
 
+## Demo
+Here is a [Demo](https://grittly.github.io/react-image-closeup/) of the component in action!
+
 ## Installation
 
 **npm**

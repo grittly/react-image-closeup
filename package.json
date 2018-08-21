@@ -1,11 +1,11 @@
 {
   "name": "react-image-closeup",
   "version": "0.1.0",
-  "description": "Display an image in a full screen modal",
+  "description": "React component for displaying a single image in a full screen modal",
   "main": "dist/index.js",
   "scripts": {
     "test": "NODE_ENV=testing mocha './test/*' --watch --require babel-core/register",
-    "start": "NODE_ENV=production npm run build && npm run server",
+    "start": "npm run dev:start",
     "dev:server": "webpack-serve ./webpack.dev.js",
     "dev:start": "concurrently \"npm:dev:build\" \"npm:dev:server\"",
     "lint": "eslint src/**",
@@ -16,7 +16,7 @@
     "gh-pages": "npm run demo:build && gh-pages -d demo/dist"
   },
   "author": "grittly",
-  "license": "ISC",
+  "license": "MIT",
   "babel": {
     "presets": [
       "env",
@@ -35,7 +35,6 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
-    "babel-plugin-react-css-modules": "^3.4.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",

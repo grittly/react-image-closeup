@@ -34,7 +34,7 @@ module.exports = {
   },
   mode: 'development',
   serve: {
-    port: 3001,
+    port: 3000,
     hotClient: false,
   },
 };
