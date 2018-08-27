@@ -6,7 +6,6 @@ This a lightweight component for displaying a single image in a fullscreen light
 - Zoom In/Zoom out and drag it around
 - Specify number of magnification steps
 - Uses css animations
-- Uses [css modules](https://github.com/css-modules/css-modules) to harmlessly inject css so it doesn't interfere with existing styles
 
 ## Demo
 Here is a [Demo](https://grittly.github.io/react-image-closeup/) of the component in action!

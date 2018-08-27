@@ -32,7 +32,7 @@ export default {
     }),
   ],
   output: {
-    file: 'dist/standalone/react-image-closeup.production.min.js',
+    file: 'dist/standalone/react_image_closeup.production.min.js',
     format: 'umd',
     name: 'ReactImageCloseup',
     globals: {

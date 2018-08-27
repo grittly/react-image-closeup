@@ -20,11 +20,11 @@ export default {
   ],
   output: [
     {
-      file: 'dist/react-image-closeup.cjs.js',
+      file: 'dist/react_image_closeup.cjs.js',
       format: 'cjs',
     },
     {
-      file: 'dist/react-image-closeup.esm.js',
+      file: 'dist/react_image_closeup.esm.js',
       format: 'esm',
     },
   ],

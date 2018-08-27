@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "repository": "github:grittly/react-image-closeup",
   "description": "React component for displaying a single image in a full screen lightbox with mangification capabilities",
-  "main": "dist/react-image-closeup.cjs.js",
-  "module": "dist/react-image-closeup.esm.js",
+  "main": "dist/react_image_closeup.cjs.js",
+  "module": "dist/react_image_closeup.esm.js",
   "scripts": {
     "test": "NODE_ENV=testing mocha './test/*' --watch --require babel-core/register",
     "start": "npm run dev:start",
@@ -16,6 +16,7 @@
     "gh-pages": "npm run demo:build && gh-pages -d demo/dist"
   },
   "author": "grittly",
+  "unpkg": "dist/standalone/react_image_closeup.production.min.js",
   "license": "MIT",
   "babel": {
     "presets": [
@@ -71,7 +72,6 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-postcss": "^1.6.2",
     "rollup-plugin-terser": "^1.0.1",
-    "rollup-plugin-uglify": "^4.0.0",
     "style-loader": "^0.21.0",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
