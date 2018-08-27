@@ -21,12 +21,12 @@ export default {
     terser({
       output: {
         comments: (node, comment) => {
-          const text = comment.value;
-          const type = comment.type;
+          const { value: text, type } = comment;
           if (type === 'comment2') {
-            // multiline comment
+            // 'comment2' is multiline comments
             return /@preserve|@license|@cc_on|copyright/i.test(text);
           }
+          return false;
         },
       },
     }),
