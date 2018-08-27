@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import css from './styles.css.json';
+import actionIcons from './actionIcons.css';
 import {
   CloseIcon,
   MagnifyIcon,
@@ -8,8 +8,8 @@ import {
 } from './ActionIcons';
 
 const Toolbar = props => (
-  <div className={css.toolbar}>
-    <div className={css.justifyCenter}>
+  <div styleName={'actionIcons.toolbar'}>
+    <div styleName={'actionIcons.justifyCenter'}>
       <DemagnifyIcon
         onClick={props.zoomOut}
         disabled={props.zoomOutDisabled}
@@ -19,7 +19,7 @@ const Toolbar = props => (
         disabled={props.zoomInDisabled}
       />
     </div>
-    <div className={css.justifyRight}>
+    <div styleName={'actionIcons.justifyRight'}>
       <CloseIcon onClick={props.closeModal} />
     </div>
   </div>

@@ -1,10 +1,12 @@
 # react-image-closeup
-While there are plenty of react components out there for displaying full size images inside a modal, a lot of them are for full-on galleries. If you want a lightweight simple component for displaying a simple image and being able to zoom in on it, give this package a try! 
+This a lightweight component for displaying a single image in a fullscreen lightbox. Comes with magnfication capabilities. 
 
 **Features**:
 - Open up a full-sized image in full-screen modal
 - Zoom In/Zoom out and drag it around
 - Specify number of magnification steps
+- Uses css animations
+- Uses [css modules](https://github.com/css-modules/css-modules) to harmlessly inject css so it doesn't interfere with existing styles
 
 ## Demo
 Here is a [Demo](https://grittly.github.io/react-image-closeup/) of the component in action!
@@ -34,7 +36,7 @@ class SampleComponent extends Component {
       <div>
         {
           this.state.modalOpen ?
-            <ImageCloseup
+            <ReactImageCloseup
               closeModalFunc={() => { this.setState({modalOpen: false}); }}
               imageSrc="http://via.placeholder.com/2000x2000"
             /> :

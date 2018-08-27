@@ -2,7 +2,8 @@
 
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import ImageCloseup from '../../dist/';
+// import ImageCloseup from '../../dist/';
+import ImageCloseup from '../../src';
 import './style.css';
 
 class App extends Component {
@@ -29,7 +30,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div styleName="container">
         {
           this.state.modalOpen ? <ImageCloseup
             closeModalFunc={this.closeModal}
@@ -37,12 +38,12 @@ class App extends Component {
           /> : null
         }
         <h1>react-image-closeup demo</h1>
-        <div className="content">
+        <div styleName="content">
           <figure>
             <img src="http://via.placeholder.com/350x350" width="350px" height="350px" alt="thumb_image" />
             <figcaption>This is a thumbnail. Click to open full version</figcaption>
           </figure>
-          <div className="button-container">
+          <div styleName="button-container">
             <button onClick={this.openModal}>Open Modal</button>
           </div>
           <p>Here is some text to accompany the image. Amet non facilis suscipit doloribus architecto soluta. Molestias minus ea ipsam dolorum expedita iste? Itaque enim iste quae similique optio consectetur quaerat ea perspiciatis velit. Tempore consectetur quasi veritatis blanditiis cumque, laudantium, culpa iusto provident. Modi magni minima aliquid vero beatae provident! Dicta nesciunt qui aliquid animi numquam? Placeat nesciunt doloribus quasi quam accusantium earum ullam ipsa molestiae. Ipsam in consequuntur repellat et perspiciatis excepturi modi voluptate sed nihil ut corporis architecto consequuntur. Eveniet odit expedita quam soluta magnam. Ipsum nihil animi id quam debitis libero accusamus. Laboriosam inventore culpa ad asperiores harum. Quae esse distinctio dicta esse saepe eos.</p>
