@@ -1,6 +1,6 @@
 {
   "name": "react-image-closeup",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "repository": "github:grittly/react-image-closeup",
   "description": "React component for displaying a single image in a full screen lightbox with mangification capabilities",
   "main": "dist/react_image_closeup.cjs.js",
