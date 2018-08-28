@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import css from './styles.css.json';
+import actionIcons from './actionIcons.css';
 
 export const CloseIcon = props => (
   <div
     onClick={props.onClick}
   >
-    <svg viewBox="0 0 64 64" className={css.iconContainer}>
-      <g className={css.icon}>
+    <svg viewBox="0 0 64 64" styleName={'actionIcons.iconContainer'}>
+      <g styleName={'actionIcons.icon'}>
         <g transform="rotate(45 32 32)">
           <rect width="3em" height="16" x="8" y="24" rx="7%" ry="7%" />
           <rect width="3em" height="16" x="8" y="24" rx="7%" ry="7%" transform="rotate(90 32 32)" />
@@ -29,12 +29,12 @@ export const MagnifyIcon = props => (
   >
     <svg
       viewBox="0 0 64 64"
-      className={classnames(
-      css.iconContainer,
-      { [css.disabled]: props.disabled },
+      styleName={classnames(
+      'actionIcons.iconContainer',
+      { ['actionIcons.disabled']: props.disabled },
       )}
     >
-      <g className={css.icon}>
+      <g styleName={'actionIcons.icon'}>
         <g>
           <rect width="3em" height="16" x="8" y="24" rx="7%" ry="7%" />
           <rect width="3em" height="16" x="8" y="24" rx="7%" ry="7%" transform="rotate(90 32 32)" />
@@ -55,12 +55,12 @@ export const DemagnifyIcon = props => (
   >
     <svg
       viewBox="0 0 64 64"
-      className={classnames(
-      css.iconContainer,
-      { [css.disabled]: props.disabled },
+      styleName={classnames(
+      'actionIcons.iconContainer',
+      { ['actionIcons.disabled']: props.disabled },
       )}
     >
-      <g className={css.icon}>
+      <g styleName={'actionIcons.icon'}>
         <g>
           <rect width="3em" height="16" x="8" y="24" rx="7%" ry="7%" />
         </g>

@@ -1,14 +1,14 @@
 /* global document, window */
 import React from 'react';
-import css from './styles.css.json';
+import loader from './loader.css';
 
 const styles = {
 };
 
 const Loader = () => (
-  <div className={ css['loader-container'] }>
-    <div className={ css.loader }>
-      <div className={ css.box }></div>
+  <div styleName={ 'loader.loader-container'}>
+    <div styleName={ 'loader.loader' }>
+      <div styleName={ 'loader.box' }></div>
     </div>
   </div>
 );

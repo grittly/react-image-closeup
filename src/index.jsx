@@ -7,7 +7,6 @@ import {
 } from './helpers';
 import Loader from './Loader';
 import Toolbar from './Toolbar';
-import cssStyles from './styles.js';
 
 const styles = {
   container: {
@@ -63,12 +62,12 @@ class ImageCloseup extends Component {
     window.ondragstart = () => false;
     window.addEventListener('resize', this.onResizeWindow);
     // Inject css
-    if (!document.querySelector('style#react-image-closeup')) {
-      const tag = document.createElement('style');
-      tag.id = 'react-image-closeup';
-      tag.innerHTML = cssStyles;
-      document.getElementsByTagName('head')[0].appendChild(tag);
-    }
+    // if (!document.querySelector('style#react-image-closeup')) {
+    //   const tag = document.createElement('style');
+    //   tag.id = 'react-image-closeup';
+    //   tag.innerHTML = cssStyles;
+    //   document.getElementsByTagName('head')[0].appendChild(tag);
+    // }
   }
 
   componentWillUnmount() {
