@@ -49,6 +49,9 @@ class ImageCloseup extends Component {
     this.onDrag = this.onDrag.bind(this);
     this.onDragStart = this.onDragStart.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.onTouchStart = this.onTouchStart.bind(this);
+    this.onTouchMove = this.onTouchMove.bind(this);
+    this.onTouchEnd = this.onTouchEnd.bind(this);
     this.handleImageLoad = this.handleImageLoad.bind(this);
     this.zoomIn = this.zoomIn.bind(this);
     this.zoomOut = this.zoomOut.bind(this);
@@ -61,13 +64,6 @@ class ImageCloseup extends Component {
     // prevent dragging behaviour
     window.ondragstart = () => false;
     window.addEventListener('resize', this.onResizeWindow);
-    // Inject css
-    // if (!document.querySelector('style#react-image-closeup')) {
-    //   const tag = document.createElement('style');
-    //   tag.id = 'react-image-closeup';
-    //   tag.innerHTML = cssStyles;
-    //   document.getElementsByTagName('head')[0].appendChild(tag);
-    // }
   }
 
   componentWillUnmount() {
@@ -108,6 +104,18 @@ class ImageCloseup extends Component {
       translateX: positionWithinRange(translateX, width, stageWidth),
       translateY: positionWithinRange(translateY, height, stageHeight),
     });
+  }
+
+  onTouchStart(e) {
+    this.onDragStart(e.changedTouches[0]);
+  }
+
+  onTouchMove(e) {
+    this.onDrag(e.changedTouches[0]);
+  }
+
+  onTouchEnd(e) {
+    this.onDragEnd(e.changedTouches[0]);
   }
 
   onResizeWindow() {
@@ -188,6 +196,9 @@ class ImageCloseup extends Component {
           onMouseDown={this.onDragStart}
           onMouseUp={this.onDragEnd}
           onMouseLeave={this.onDragEnd}
+          onTouchStart={this.onTouchStart}
+          onTouchMove={this.onTouchMove}
+          onTouchEnd={this.onTouchEnd}
           ref={(elem) => { this.container = elem; }}
           style={{
             ...styles.imageContainer,
