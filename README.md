@@ -13,9 +13,26 @@ Here is a [Demo](https://grittly.github.io/react-image-closeup/) of the componen
 ## Installation
 
 **npm**
+
 ```
 npm install react-image-closeup --save
 ```
+
+**standalone**
+
+You can load the standalone version of the component from `node_modules/standalone/react_image_closeup.production.min.js` or via CDN `https://unpkg.com/react-image-closeup`. The package requires `react`, `react-dom` and `prop-types`.
+
+```html
+<script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.6/prop-types.min.js"></script>
+<script src="https://unpkg.com/react-image-closeup"></script>
+<script>
+  // Your code here
+</script>
+```
+
+To see a full example, check out this [CodePen](https://codepen.io/grittly/pen/aaWqQY)
 
 ## Usage
 ```javascript
