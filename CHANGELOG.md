@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - allow panning on mobile using touch
 
+### Fixed
+- image's alt text was showing up before image was loaded. Changed default opacity to 0.
+
 ## [1.0.0] - 2018-08-28
 ### Added
 - Babel plugin `babel-plugin-react-css-modules` to automatically convert `styleName` to `className` using the correct css module, in both webpack and rollup builds

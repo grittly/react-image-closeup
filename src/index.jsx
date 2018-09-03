@@ -27,6 +27,11 @@ const styles = {
     maxHeight: '100vh',
     maxWidth: '100vw',
     userSelect: 'none',
+    transition: 'opacity 1s',
+    opacity: 0,
+  },
+  loaded: {
+    opacity: 1,
   },
 };
 
@@ -212,7 +217,10 @@ class ImageCloseup extends Component {
             onLoad={this.handleImageLoad}
             alt={this.props.imageAltText}
             ref={(elem) => { this.image = elem; }}
-            style={styles.img}
+            style={{
+              ...styles.img,
+              ...(this.state.imageLoaded ? styles.loaded : {}),
+            }}
           />
         </div>
       </div>
